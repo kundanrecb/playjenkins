@@ -5,7 +5,7 @@ pipeline {
     dockerImage = ""
   }
 
-  agent { label 'kubepod'}
+  agent any
 
   stages {
 
@@ -28,6 +28,7 @@ pipeline {
     }
 
     stage('Deploy App') {
+      agent { label 'kubepod'}
       steps {
         script {
           kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
