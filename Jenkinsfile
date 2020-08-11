@@ -28,7 +28,7 @@ pipeline {
     }
 
     stage('Deploy App') {
-      agent any
+      agent { label 'kubepod' }
       steps {
         script {
           kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
