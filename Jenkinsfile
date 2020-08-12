@@ -9,13 +9,13 @@ def loadProperties() {
 def readProperty(propName) {
     node {
         echo " readProperties called, propName: ${propName} & properties:  ${properties}"
-        if (isNull(properties)) {
+        if (properties == null) {
             echo "in if"
             loadProperties()
             echo " Now properties:  ${properties}"
         }
-        echo "after if: ${properties.${propName}}"
-        return "${properties.${propName}}"
+        echo "after if: ${properties.docker_repo_url}"
+        return "${properties.docker_repo_url}"
     }
 }
 pipeline {
