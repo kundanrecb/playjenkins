@@ -9,15 +9,17 @@ def loadProperties() {
 def readProperty(propName) {
     node {
         echo " readProperties called, propName: ${propName} & properties:  ${properties}"
-        if (properties == null) {
+        if ("${properties}" == null) {
+            echo "in if"
             loadProperties()
         }
+        echo "after if: ${properties.${propName}}"
         return "${properties.${propName}}"
     }
 }
 pipeline {
   environment {
-    loadprop = readProperty(docker_repo_url)
+    loadprop = readProperty("docker_repo_url")
     //registry = "192.168.203.17:5000/justme/myweb"
     //registry = "${properties.docker_repo_url}"
     dockerImage = ""
