@@ -1,13 +1,14 @@
 properties = null
 def loadProperties() {
     node {
+        echo "In loadProperties()"
         checkout scm
         properties = readProperties file: 'pipeline.properties'
-        echo "Loaded properties file: ${properties.docker_repo_url}"        
+        echo "Finished loading properties: ${properties}"        
     }
 }
 def readDockerRepoUrl() {
-    echo "in readDockerRepoUrl"
+    echo "In readDockerRepoUrl"
     echo "properties value: ${properties}"
     loadProperties()
      echo "loaded properties: ${properties}"
@@ -18,27 +19,24 @@ def readDockerRepoUrl() {
     def tag = sh script: 'git rev-parse HEAD', returnStdout: true
     return repoUrl
 }
-def readDockerRepoUrlDynamic(pName) {
-    echo "in readDockerRepoUrl"
-    echo "properties value: ${properties}, pName: ${pName}"
+def readPropertyDynamically(pName) {
+    echo "In readDockerRepoUrlDynamic(), property to get is  ${pName}"
+    
     if(properties == null){
+        echo "In if block as properties value is : ${properties}"
         loadProperties()
     }else{
-        echo "Properties already loaded"
+        echo "In else block as properties are already loaded"
     }
-    echo "loaded properties: ${properties}"
     def repoUrl = "properties"+".${pName}"
-    echo "after repoUrl assignment"
-    echo "reporUrl: ${repoUrl}"
-    //return repoUrl
-    def tag = sh script: 'git rev-parse HEAD', returnStdout: true
-    return tag
+    echo "property to fetched is reporUrl: ${repoUrl}"
+    return repoUrl
 }
 pipeline {
   environment {
     //loadprop = loadProperties()
     //registry = "192.168.203.17:5000/justme/myweb"
-    registry = readDockerRepoUrlDynamic('docker_repo_url')
+    registry = readPropertyDynamically('docker_repo_url')
     dockerImage = ""
   }
 
