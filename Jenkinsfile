@@ -8,7 +8,9 @@ def loadProperties() {
 }
 def readDockerRepoUrl() {
     echo "in readDockerRepoUrl"
+    echo "properties value: ${properties}"
     def repoUrl = "${properties.docker_repo_url}"
+    echo "after repoUrl assignment"
     echo "reporUrl: ${repoUrl}"
     //return repoUrl
     def tag = sh script: 'git rev-parse HEAD', returnStdout: true
