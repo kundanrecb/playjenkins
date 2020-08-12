@@ -7,18 +7,6 @@ def loadProperties() {
         echo "Finished loading properties: ${properties}"        
     }
 }
-def readDockerRepoUrl() {
-    echo "In readDockerRepoUrl"
-    echo "properties value: ${properties}"
-    loadProperties()
-     echo "loaded properties: ${properties}"
-    def repoUrl = "${properties.docker_repo_url}"
-    echo "after repoUrl assignment"
-    echo "reporUrl: ${repoUrl}"
-    //return repoUrl
-    def tag = sh script: 'git rev-parse HEAD', returnStdout: true
-    return repoUrl
-}
 def readPropertyDynamically(pName) {
     echo "In readDockerRepoUrlDynamic(), property to get is  ${pName}"
     
@@ -28,10 +16,9 @@ def readPropertyDynamically(pName) {
     }else{
         echo "In else block as properties are already loaded"
     }
-    def repoUrl = properties["${pName}"]
-    //repoUrl = "${repoUrl}"
-    echo "property to fetched is reporUrl: ${repoUrl}"
-    return repoUrl
+    def pValue = properties["${pName}"]
+    echo "property to fetched is reporUrl: ${pValue}"
+    return pValue
 }
 pipeline {
   environment {
