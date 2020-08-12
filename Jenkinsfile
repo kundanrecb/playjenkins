@@ -28,7 +28,7 @@ def readPropertyDynamically(pName) {
     }else{
         echo "In else block as properties are already loaded"
     }
-    def repoUrl = "properties"+".${pName}"
+    def repoUrl = ${"properties"+".${pName}"}
     echo "property to fetched is reporUrl: ${repoUrl}"
     return repoUrl
 }
