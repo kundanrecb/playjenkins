@@ -9,6 +9,8 @@ def loadProperties() {
 def readDockerRepoUrl() {
     echo "in readDockerRepoUrl"
     echo "properties value: ${properties}"
+    loadProperties()
+     echo "loaded properties: ${properties}"
     def repoUrl = "${properties.docker_repo_url}"
     echo "after repoUrl assignment"
     echo "reporUrl: ${repoUrl}"
@@ -18,7 +20,7 @@ def readDockerRepoUrl() {
 }
 pipeline {
   environment {
-    loadprop = loadProperties()
+    //loadprop = loadProperties()
     //registry = "192.168.203.17:5000/justme/myweb"
     registry = readDockerRepoUrl()
     dockerImage = ""
