@@ -6,14 +6,16 @@ def loadProperties() {
         echo "Loaded properties file: ${properties.docker_repo_url}"        
     }
 }
-def readProperty(propName) {
-    return "${properties.docker_repo_url}"
+def readDockerRepoUrl() {
+    def repoUrl = "${properties.docker_repo_url}"
+    echo "reporUrl: ${repoUrl}"
+    return repoUrl
 }
 pipeline {
   environment {
     loadprop = loadProperties()
     //registry = "192.168.203.17:5000/justme/myweb"
-    registry = readProperty("docker_repo_url")
+    registry = readDockerRepoUrl()
     dockerImage = ""
   }
 
