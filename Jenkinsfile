@@ -16,7 +16,7 @@ def readDockerRepoUrl() {
     echo "reporUrl: ${repoUrl}"
     //return repoUrl
     def tag = sh script: 'git rev-parse HEAD', returnStdout: true
-    return tag
+    return reporUrl
 }
 pipeline {
   environment {
