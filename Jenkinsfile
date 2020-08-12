@@ -9,9 +9,10 @@ def loadProperties() {
 def readProperty(propName) {
     node {
         echo " readProperties called, propName: ${propName} & properties:  ${properties}"
-        if ("${properties}" == null) {
+        if (isNull(properties)) {
             echo "in if"
             loadProperties()
+            echo " Now properties:  ${properties}"
         }
         echo "after if: ${properties.${propName}}"
         return "${properties.${propName}}"
