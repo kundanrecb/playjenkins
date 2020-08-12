@@ -1,7 +1,16 @@
+properties = null
+def loadProperties() {
+    node {
+        checkout scm
+        properties = readProperties file: 'pipeline.properties'
+        echo "Reading properties for Docker Registry project ${properties.docker_repo_url}"
+    }
+}
 pipeline {
-
   environment {
-    registry = "192.168.203.17:5000/justme/myweb"
+    loadProperties()
+    //registry = "192.168.203.17:5000/justme/myweb"
+    registry = "${properties.docker_repo_url}"
     dockerImage = ""
   }
 
