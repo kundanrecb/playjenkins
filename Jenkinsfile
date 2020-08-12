@@ -7,22 +7,13 @@ def loadProperties() {
     }
 }
 def readProperty(propName) {
-    node {
-        echo " readProperties called, propName: ${propName} & properties:  ${properties}"
-        if (properties == null) {
-            echo "in if"
-            loadProperties()
-            echo " Now properties:  ${properties}"
-        }
-        echo "after if: ${properties.docker_repo_url}"
-        return "${properties.docker_repo_url}"
-    }
+    return "${properties.docker_repo_url}"
 }
 pipeline {
   environment {
-    loadprop = readProperty("docker_repo_url")
+    loadprop = loadProperties()
     //registry = "192.168.203.17:5000/justme/myweb"
-    //registry = "${properties.docker_repo_url}"
+    registry = readProperty("docker_repo_url")
     dockerImage = ""
   }
 
@@ -33,7 +24,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-            echo "Reading properties for Docker Registry project ${loadprop}"
+            echo "Reading properties for Docker Registry project ${registry}"
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
