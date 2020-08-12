@@ -3,13 +3,21 @@ def loadProperties() {
     node {
         checkout scm
         properties = readProperties file: 'pipeline.properties'
-        echo "Reading properties for Docker Registry project ${properties.docker_repo_url}"
-        
+        echo "Loaded properties file: ${properties.docker_repo_url}"        
+    }
+}
+def readProperty(propName) {
+    node {
+        echo " readProperties called, propName: ${propName} & properties:  ${properties}"
+        if (properties == null) {
+            loadProperties()
+        }
+        return "${properties.${propName}}"
     }
 }
 pipeline {
   environment {
-    loadprop = loadProperties()
+    loadprop = readProperty(docker_repo_url)
     //registry = "192.168.203.17:5000/justme/myweb"
     //registry = "${properties.docker_repo_url}"
     dockerImage = ""
