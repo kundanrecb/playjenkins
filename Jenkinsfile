@@ -21,7 +21,11 @@ def readDockerRepoUrl() {
 def readDockerRepoUrlDynamic(pName) {
     echo "in readDockerRepoUrl"
     echo "properties value: ${properties}, pName: ${pName}"
-    loadProperties()
+    if(properties == null){
+        loadProperties()
+    }else{
+        echo "Properties already loaded"
+    }
     echo "loaded properties: ${properties}"
     def repoUrl = "properties"+".${pName}"
     echo "after repoUrl assignment"
