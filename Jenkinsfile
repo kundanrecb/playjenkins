@@ -48,7 +48,7 @@ pipeline {
       steps{
         script {
             echo "Reading properties for Docker Registry project ${registry}"
-          //dockerImage = docker.build registry + ":$BUILD_NUMBER"
+            dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
