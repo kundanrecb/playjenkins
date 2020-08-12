@@ -53,7 +53,7 @@ pipeline {
       }
     }
 
-    /* stage('Push Image') {
+    stage('Push Image') {
       steps{
         script {
           docker.withRegistry( "" ) {
@@ -70,7 +70,7 @@ pipeline {
           kubernetesDeploy(configs: "myweb.yaml", kubeconfigId: "mykubeconfig")
         }
       }
-    } */
+    }
 
   }
 
