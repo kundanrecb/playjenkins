@@ -4,7 +4,7 @@ def loadProperties() {
         checkout scm
         properties = readProperties file: 'pipeline.properties'
         echo "Reading properties for Docker Registry project ${properties.docker_repo_url}"
-        echo "Reading properties for Docker Registry project ${loadprop}"
+        
     }
 }
 pipeline {
@@ -22,6 +22,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
+            echo "Reading properties for Docker Registry project ${loadprop}"
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
