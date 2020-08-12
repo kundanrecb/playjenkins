@@ -8,7 +8,7 @@ def loadProperties() {
 }
 pipeline {
   environment {
-    loadProperties()
+    loadprop = loadProperties()
     //registry = "192.168.203.17:5000/justme/myweb"
     registry = "${properties.docker_repo_url}"
     dockerImage = ""
